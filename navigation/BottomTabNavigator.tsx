@@ -5,9 +5,11 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, HomeParamList, ExploreParamList, NewPostParamList, ProfileParamList } from '../types';
+import Explore from '../screens/Explore';
+import Home from '../screens/Home';
+import Profile from '../screens/Profile';
+import NewPost from '../screens/NewPost';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,20 +18,34 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Explore"
+        component={ExploreNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-search" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="NewPost"
+        component={NewPostNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-add-circle-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-person-circle-outline" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -44,30 +60,58 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerTitle: 'Home' }}
       />
-    </TabOneStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const ProfileStack = createStackNavigator<ProfileParamList>();
 
-function TabTwoNavigator() {
+function ProfileNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerTitle: 'Profile' }}
       />
-    </TabTwoStack.Navigator>
+    </ProfileStack.Navigator>
+  );
+}
+
+const NewPostStack = createStackNavigator<NewPostParamList>();
+
+function NewPostNavigator() {
+  return (
+    <NewPostStack.Navigator>
+      <NewPostStack.Screen
+        name="NewPost"
+        component={NewPost}
+        options={{ headerTitle: 'NewPost' }}
+      />
+    </NewPostStack.Navigator>
+  );
+}
+
+const ExploreStack = createStackNavigator<ExploreParamList>();
+
+function ExploreNavigator() {
+  return (
+    <ExploreStack.Navigator>
+      <ExploreStack.Screen
+        name="Explore"
+        component={Explore}
+        options={{ headerTitle: 'Explore' }}
+      />
+    </ExploreStack.Navigator>
   );
 }
